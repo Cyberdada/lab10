@@ -1,0 +1,29 @@
+<h1 class="font-semibold text-lg p-2">Inventory</h1>
+<div class="p-4">
+  <p *ngIf="inventory.length === 0">No cars in inventory :/</p>
+  <div
+    *ngFor="let car of inventory; trackBy: trackByVIN"
+    [ngClass]="{ 'featured-item': car.featured }"
+  >
+    <h3>{{ car.year }} {{ car.make }}, {{ car.model }}</h3>
+    <p class="gallery">
+      <app-photo-gallery
+        (navigateEvent)="photoNavigation($event, car)"
+        *ngIf="car.photos.length > 0"
+        [photos]="car.photos"
+      >
+      </app-photo-gallery>
+    </p>
+    <p *ngIf="car.featured">Featured car of the month!</p>
+    <p>VIN: {{ car.VIN }}</p>
+    <p>{{ car.mileage }} Miles, ${{ car.price }}</p>
+    <p>
+      <button
+        class="bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded-md"
+        (click)="delete(car)"
+      >
+        Delete
+      </button>
+    </p>
+  </div>
+</div>

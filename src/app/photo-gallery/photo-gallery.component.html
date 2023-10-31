@@ -1,0 +1,13 @@
+<div>
+  <div>
+    <img [src]="'assets/' + photos[currentIndex]" text="car image" />
+  </div>
+  <div>
+    <button [disabled]="currentIndex === 0" (click)="previous()">
+      Previous
+    </button>
+    <button [disabled]="currentIndex === photos.length - 1" (click)="next()">
+      Next
+    </button>
+  </div>
+</div>
