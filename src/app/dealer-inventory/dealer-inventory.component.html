@@ -1,8 +1,13 @@
 <h1 class="font-semibold text-lg p-2">Inventory</h1>
+<app-vehicle-form-reactive
+  class="p-2"
+  (submitEvent)="add($event)"
+></app-vehicle-form-reactive>
 <div class="p-4">
-  <p *ngIf="inventory.length === 0">No cars in inventory :/</p>
+  <p *ngIf="(inventory$ | async)?.length === 0">No cars in inventory :/</p>
   <div
-    *ngFor="let car of inventory; trackBy: trackByVIN"
+    class="p-2"
+    *ngFor="let car of inventory$ | async; trackBy: trackByVIN"
     [ngClass]="{ 'featured-item': car.featured }"
   >
     <h3>{{ car.year }} {{ car.make }}, {{ car.model }}</h3>
@@ -17,12 +22,26 @@
     <p *ngIf="car.featured">Featured car of the month!</p>
     <p>VIN: {{ car.VIN }}</p>
     <p>{{ car.mileage }} Miles, ${{ car.price }}</p>
+    <app-vehicle-form-reactive
+      *ngIf="vehicleToEdit === car"
+      [vehicle]="car"
+      [canCancel]="true"
+      (submitEvent)="commit($event)"
+      (cancelEvent)="cancel()"
+    >
+    </app-vehicle-form-reactive>
     <p>
       <button
         class="bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded-md"
         (click)="delete(car)"
       >
         Delete
+      </button>
+      <button
+        class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded-md"
+        (click)="beginEditing(car)"
+      >
+        Edit
       </button>
     </p>
   </div>

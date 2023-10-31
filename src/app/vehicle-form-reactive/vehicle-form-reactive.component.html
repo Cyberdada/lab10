@@ -1,0 +1,49 @@
+<form [formGroup]="vehicleForm">
+  <div class="p-2">
+    VIN: <br />
+    <input type="text" formControlName="VIN" />
+    <span
+      class="text-red-500"
+      *ngIf="vehicleForm.controls.VIN.invalid && vehicleForm.controls.VIN.dirty"
+      >Must be 3 characters. must not contain I, O or Q</span
+    >
+    <div
+      class="text-red-500"
+      *ngIf="vehicleForm.controls.VIN.hasError('valdidateVIN')"
+    >
+      I O Q
+    </div>
+
+    <br />
+    Year: <br />
+    <input type="number" formControlName="year" /><br />
+    <span
+      class="text-red-500"
+      *ngIf="
+        vehicleForm.controls.year.invalid && vehicleForm.controls.year.dirty
+      "
+      >Year must be between 2000 and 2023</span
+    >
+    Make: <br />
+    <input type="text" formControlName="make" /> <br />
+    Model: <br />
+    <input type="text" formControlName="model" /> <br />
+    Milage: <br />
+    <input type="number" formControlName="mileage" /> <br />
+    Price: <br />
+    <input type="number" formControlName="price" /> <br />
+    <label>
+      <input type="checkbox" formControlName="featured" />
+      Featured vehicle
+    </label>
+    <br />
+    <p *ngIf="vehicleForm.invalid" class="error">Please enter valid values</p>
+    <button
+      class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded-md disabled:bg-gray-500"
+      (click)="submit()"
+      [disabled]="vehicleForm.invalid"
+    >
+      Submit
+    </button>
+  </div>
+</form>

@@ -1,0 +1,61 @@
+<form ngForm #myForm="ngForm">
+  <div class="p-2">
+    VIN: <br />
+    <input
+      type="text"
+      name="veh_vin"
+      [ngModel]="vehicle.VIN"
+      required
+      minlength="3"
+      #vin="ngModel"
+    />
+    <span class="text-red-500" *ngIf="vin.invalid && vin.dirty"
+      >VIN must be 3 characters</span
+    ><br />
+    Year: <br />
+    <input
+      type="number"
+      name="veh_year"
+      #year="ngModel"
+      [ngModel]="vehicle.year"
+      required
+      min="2000"
+      max="2050"
+    />
+    <span class="text-red-500" *ngIf="year.invalid && year.dirty"
+      >Year must be between 2000 and 2050</span
+    >
+    <br />
+    Make: <br />
+    <input type="text" name="veh_make" [ngModel]="vehicle.make" /><br />
+    Model: <br />
+    <input type="text" name="veh_model" [ngModel]="vehicle.model" /><br />
+    Milage: <br />
+    <input type="number" name="veh_mileage" [ngModel]="vehicle.mileage" /><br />
+    Price: <br />
+    <input type="number" name="veh_price" [ngModel]="vehicle.price" /><br />
+    <label>
+      <input type="checkbox" name="veh_featured" [ngModel]="vehicle.featured" />
+      Featured vehicle
+    </label>
+    <br />
+
+    <p *ngIf="myForm.invalid" class="text-red-500">Please enter valid values</p>
+
+    <button
+      class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded-md disabled:bg-gray-500"
+      (click)="submit(myForm)"
+      [disabled]="myForm.invalid"
+    >
+      Submit
+    </button>
+
+    <button
+      *ngIf="canCancel"
+      class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded-md disabled:bg-gray-500"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</form>
